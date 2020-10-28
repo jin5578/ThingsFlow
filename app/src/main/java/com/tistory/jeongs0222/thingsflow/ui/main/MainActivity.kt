@@ -28,7 +28,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     private fun setInitView() {
         supportActionBar?.title = "AndroidAssignment"
 
-        viewDataBinding.recyclerView.adapter = IssueListAdapter(this)
+        viewDataBinding.recyclerView.adapter = IssueListAdapter(this, this@MainActivity.viewModel)
     }
 
 }

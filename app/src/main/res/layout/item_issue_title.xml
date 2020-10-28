@@ -9,11 +9,16 @@
             name="item"
             type="com.tistory.jeongs0222.thingsflow.ui.main.MainUiModel.IssueTitle" />
 
+        <variable
+            name="eventListener"
+            type="com.tistory.jeongs0222.thingsflow.ui.main.MainEventListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> eventListener.issueTitleClickEvent()}">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guide_start"

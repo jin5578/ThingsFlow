@@ -9,11 +9,13 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.tistory.jeongs0222.thingsflow.databinding.ItemIssueImageBinding
 import com.tistory.jeongs0222.thingsflow.databinding.ItemIssueTitleBinding
+import com.tistory.jeongs0222.thingsflow.ui.main.MainEventListener
 import com.tistory.jeongs0222.thingsflow.ui.main.MainUiModel
 
 
 class IssueListAdapter(
-    private val lifecycleOwner: LifecycleOwner
+    private val lifecycleOwner: LifecycleOwner,
+    private val eventListener: MainEventListener
 ) : ListAdapter<MainUiModel, RecyclerView.ViewHolder>(IssueDiff) {
 
     companion object {
@@ -37,7 +39,7 @@ class IssueListAdapter(
                     false
                 )
 
-                IssueTitleListViewHolder(binding, lifecycleOwner)
+                IssueTitleListViewHolder(binding, lifecycleOwner, eventListener)
             }
 
             IMAGE_TYPE -> {
@@ -47,7 +49,7 @@ class IssueListAdapter(
                     false
                 )
 
-                IssueImageListViewHolder(binding, lifecycleOwner)
+                IssueImageListViewHolder(binding, lifecycleOwner, eventListener)
             }
 
             else -> {
@@ -70,24 +72,28 @@ class IssueListAdapter(
 
 class IssueTitleListViewHolder(
     private val binding: ItemIssueTitleBinding,
-    private val lifecycleOwner: LifecycleOwner
+    private val lifecycleOwner: LifecycleOwner,
+    private val eventListener: MainEventListener
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: MainUiModel) {
         binding.item = item as MainUiModel.IssueTitle
 
         binding.lifecycleOwner = lifecycleOwner
+        binding.eventListener = eventListener
         binding.executePendingBindings()
     }
 }
 
 class IssueImageListViewHolder(
     private val binding: ItemIssueImageBinding,
-    private val lifecycleOwner: LifecycleOwner
+    private val lifecycleOwner: LifecycleOwner,
+    private val eventListener: MainEventListener
 ) : RecyclerView.ViewHolder(binding.root) {
     fun bind(item: MainUiModel) {
         binding.item = item as MainUiModel.IssueImage
 
         binding.lifecycleOwner = lifecycleOwner
+        binding.eventListener = eventListener
         binding.executePendingBindings()
     }
 }

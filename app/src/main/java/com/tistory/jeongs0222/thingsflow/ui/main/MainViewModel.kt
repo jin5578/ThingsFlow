@@ -15,7 +15,7 @@ import timber.log.Timber
 
 class MainViewModel(
     private val repository: MainRepository
-) : DisposableViewModel() {
+) : DisposableViewModel(), MainEventListener {
 
     val orgRepoValue = MutableLiveData<OrgRepo>().apply { value = OrgRepo("google", "dagger") }
 
@@ -75,5 +75,18 @@ class MainViewModel(
         return list
     }
 
+    override fun issueTitleClickEvent() {
+        Timber.e("Issue Title Clicked")
+    }
 
+    override fun issueImageClickEvent() {
+        Timber.e("Issue Image Clicked")
+    }
+
+}
+
+interface MainEventListener {
+    fun issueTitleClickEvent()
+
+    fun issueImageClickEvent()
 }
