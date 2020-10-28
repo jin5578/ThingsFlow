@@ -1,6 +1,5 @@
 package com.tistory.jeongs0222.thingsflow.ui.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tistory.jeongs0222.thingsflow.R
 import com.tistory.jeongs0222.thingsflow.databinding.ActivityMainBinding
@@ -21,6 +20,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             viewModel = this@MainActivity.viewModel
             lifecycleOwner = this@MainActivity
         }
+
+        supportActionBar?.title = "AndroidAssignment"
     }
 
 }
