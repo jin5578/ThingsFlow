@@ -32,6 +32,8 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             startActivity(
                 Intent(
                     this, DetailActivity::class.java
+                ).putExtra(
+                    "detailArgs", it
                 )
             )
         })
