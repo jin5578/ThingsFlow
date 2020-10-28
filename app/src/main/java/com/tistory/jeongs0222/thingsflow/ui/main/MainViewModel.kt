@@ -83,15 +83,15 @@ class MainViewModel(
             } else {
                 val title = "#" + issue.number + ":" + " " + issue.title
 
-                list.add(MainUiModel.IssueTitle(title))
+                list.add(MainUiModel.IssueTitle(issue.number, title))
             }
         }
 
         return list
     }
 
-    override fun issueTitleClickEvent() {
-        val args = DetailArgs(orgRepoValue.requireValue().org, orgRepoValue.requireValue().repo)
+    override fun issueTitleClickEvent(number: Int) {
+        val args = DetailArgs(orgRepoValue.requireValue().org, orgRepoValue.requireValue().repo, number)
 
         _titleClicked.value = args
     }
@@ -103,7 +103,7 @@ class MainViewModel(
 }
 
 interface MainEventListener {
-    fun issueTitleClickEvent()
+    fun issueTitleClickEvent(number: Int)
 
     fun issueImageClickEvent(url: String)
 }

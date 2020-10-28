@@ -18,7 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> eventListener.issueTitleClickEvent()}">
+        android:onClick="@{() -> eventListener.issueTitleClickEvent(item.number)}">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guide_start"

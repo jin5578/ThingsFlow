@@ -7,5 +7,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class DetailArgs(
     val org: String,
-    val repo: String
+    val repo: String,
+    val number: Int
 ): Parcelable

@@ -23,7 +23,7 @@ class DetailViewModel(
 
     private fun bringIssueDetail() {
         compositeDisposable add
-                repository.bringIssueDetail("google", "dagger", 2155)
+                repository.bringIssueDetail(args.org, args.repo, args.number)
                     .subscribeOn(Schedulers.io())
                     .retry(1)
                     .observeOn(AndroidSchedulers.mainThread())
