@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.tistory.jeongs0222.thingsflow.R
 import com.tistory.jeongs0222.thingsflow.databinding.ActivityMainBinding
 import com.tistory.jeongs0222.thingsflow.ui.BaseActivity
+import com.tistory.jeongs0222.thingsflow.ui.main.adapter.IssueListAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : BaseActivity<ActivityMainBinding>() {
@@ -21,7 +22,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
             lifecycleOwner = this@MainActivity
         }
 
+        setInitView()
+    }
+
+    private fun setInitView() {
         supportActionBar?.title = "AndroidAssignment"
+
+        viewDataBinding.recyclerView.adapter = IssueListAdapter(this)
     }
 
 }

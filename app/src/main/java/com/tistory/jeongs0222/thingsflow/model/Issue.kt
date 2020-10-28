@@ -1,7 +1,7 @@
 package com.tistory.jeongs0222.thingsflow.model
 
 
-data class IssueList(
+data class Issue(
     val number: Int,
     val title: String
 )
