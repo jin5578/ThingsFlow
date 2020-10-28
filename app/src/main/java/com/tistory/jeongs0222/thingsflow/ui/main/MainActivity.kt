@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer
 import com.tistory.jeongs0222.thingsflow.R
 import com.tistory.jeongs0222.thingsflow.databinding.ActivityMainBinding
 import com.tistory.jeongs0222.thingsflow.ui.BaseActivity
+import com.tistory.jeongs0222.thingsflow.ui.detail.DetailActivity
 import com.tistory.jeongs0222.thingsflow.ui.main.adapter.IssueListAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,7 +29,11 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         setInitView()
 
         viewModel.titleClicked.observe(this, Observer {
-
+            startActivity(
+                Intent(
+                    this, DetailActivity::class.java
+                )
+            )
         })
 
         viewModel.imageClicked.observe(this, Observer {
