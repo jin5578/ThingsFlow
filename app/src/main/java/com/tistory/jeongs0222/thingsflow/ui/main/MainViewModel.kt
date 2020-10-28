@@ -7,6 +7,7 @@ import com.tistory.jeongs0222.thingsflow.domain.MainRepository
 import com.tistory.jeongs0222.thingsflow.model.Issue
 import com.tistory.jeongs0222.thingsflow.model.OrgRepo
 import com.tistory.jeongs0222.thingsflow.ui.DisposableViewModel
+import com.tistory.jeongs0222.thingsflow.util.SingleLiveEvent
 import com.tistory.jeongs0222.thingsflow.util.requireValue
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -16,6 +17,14 @@ import timber.log.Timber
 class MainViewModel(
     private val repository: MainRepository
 ) : DisposableViewModel(), MainEventListener {
+
+    private val _titleClicked = SingleLiveEvent<Any>()
+    val titleClicked: LiveData<Any>
+        get() = _titleClicked
+
+    private val _imageClicked = SingleLiveEvent<String>()
+    val imageClicked: LiveData<String>
+        get() = _imageClicked
 
     val orgRepoValue = MutableLiveData<OrgRepo>().apply { value = OrgRepo("google", "dagger") }
 
@@ -64,7 +73,11 @@ class MainViewModel(
 
         forEachIndexed { index, issue ->
             if (index == 4) {
-                list.add(MainUiModel.IssueImage("https://s3.ap-northeast-2.amazonaws.com/hellobot-kr-test/image/main_logo.png"))
+                list.add(
+                    MainUiModel.IssueImage(
+                        "https://s3.ap-northeast-2.amazonaws.com/hellobot-kr-test/image/main_logo.png",
+                    "https://thingsflow.com/ko/home")
+                )
             } else {
                 val title = "#" + issue.number + ":" + " " + issue.title
 
@@ -76,11 +89,11 @@ class MainViewModel(
     }
 
     override fun issueTitleClickEvent() {
-        Timber.e("Issue Title Clicked")
+        _titleClicked.call()
     }
 
-    override fun issueImageClickEvent() {
-        Timber.e("Issue Image Clicked")
+    override fun issueImageClickEvent(url: String) {
+        _imageClicked.value = url
     }
 
 }
@@ -88,5 +101,5 @@ class MainViewModel(
 interface MainEventListener {
     fun issueTitleClickEvent()
 
-    fun issueImageClickEvent()
+    fun issueImageClickEvent(url: String)
 }

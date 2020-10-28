@@ -18,7 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:onClick="@{() -> eventListener.issueImageClickEvent()}">
+        android:onClick="@{() -> eventListener.issueImageClickEvent(item.homepageUrl)}">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guide_start"
@@ -44,7 +44,7 @@
         <ImageView
             android:layout_width="@dimen/match_constraint"
             android:layout_height="wrap_content"
-            app:issueImage="@{item.image}"
+            app:issueImage="@{item.imageUrl}"
             app:layout_constraintEnd_toEndOf="@id/guide_end"
             app:layout_constraintStart_toStartOf="@id/guide_start"
             app:layout_constraintTop_toTopOf="@id/guide_top" />

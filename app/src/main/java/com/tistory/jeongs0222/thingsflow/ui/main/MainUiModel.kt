@@ -8,7 +8,8 @@ sealed class MainUiModel {
     ) : MainUiModel()
 
     data class IssueImage(
-        val image: String
+        val imageUrl: String,
+        val homepageUrl: String
     ) : MainUiModel()
 
 }

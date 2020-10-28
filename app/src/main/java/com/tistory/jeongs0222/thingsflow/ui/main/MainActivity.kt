@@ -1,6 +1,9 @@
 package com.tistory.jeongs0222.thingsflow.ui.main
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.tistory.jeongs0222.thingsflow.R
 import com.tistory.jeongs0222.thingsflow.databinding.ActivityMainBinding
 import com.tistory.jeongs0222.thingsflow.ui.BaseActivity
@@ -23,6 +26,19 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         }
 
         setInitView()
+
+        viewModel.titleClicked.observe(this, Observer {
+
+        })
+
+        viewModel.imageClicked.observe(this, Observer {
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse(it)
+                )
+            )
+        })
     }
 
     private fun setInitView() {
