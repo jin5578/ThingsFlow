@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.tistory.jeongs0222.thingsflow.ui.main.MainUiModel" />
+            type="com.tistory.jeongs0222.thingsflow.ui.main.MainUiModel.IssueTitle" />
 
     </data>
 

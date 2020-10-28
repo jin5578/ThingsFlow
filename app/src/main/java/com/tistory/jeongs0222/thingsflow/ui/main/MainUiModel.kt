@@ -1,6 +1,14 @@
 package com.tistory.jeongs0222.thingsflow.ui.main
 
 
-data class MainUiModel(
-    val title: String
-)
+sealed class MainUiModel {
+
+    data class IssueTitle(
+        val title: String
+    ) : MainUiModel()
+
+    data class IssueImage(
+        val image: String
+    ) : MainUiModel()
+
+}

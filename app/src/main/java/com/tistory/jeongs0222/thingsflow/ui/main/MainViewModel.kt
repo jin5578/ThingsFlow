@@ -10,6 +10,7 @@ import com.tistory.jeongs0222.thingsflow.ui.DisposableViewModel
 import com.tistory.jeongs0222.thingsflow.util.requireValue
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
 
 
 class MainViewModel(
@@ -18,9 +19,6 @@ class MainViewModel(
 
     val orgRepoValue = MutableLiveData<OrgRepo>().apply { value = OrgRepo("google", "dagger") }
 
-    /*private val _issueList = MediatorLiveData<List<Issue>>()
-    val issueList: LiveData<List<Issue>>
-        get() = _issueList*/
     private val issueList = MediatorLiveData<List<Issue>>()
 
     private val _mainUiModelList = MediatorLiveData<List<MainUiModel>>()
@@ -39,7 +37,10 @@ class MainViewModel(
 
     private fun bringIssueList() {
         compositeDisposable add
-                repository.bringIssueList(orgRepoValue.requireValue().org, orgRepoValue.requireValue().repo)
+                repository.bringIssueList(
+                    orgRepoValue.requireValue().org,
+                    orgRepoValue.requireValue().repo
+                )
                     .subscribeOn(Schedulers.io())
                     .retry(1)
                     .observeOn(AndroidSchedulers.mainThread())
@@ -61,10 +62,14 @@ class MainViewModel(
     private fun List<Issue>.groupByMainUiModelList(): List<MainUiModel> {
         val list = mutableListOf<MainUiModel>()
 
-        forEach {
-            val title = "#" + it.number + ":" + " " + it.title
+        forEachIndexed { index, issue ->
+            if (index == 4) {
+                list.add(MainUiModel.IssueImage("https://s3.ap-northeast-2.amazonaws.com/hellobot-kr-test/image/main_logo.png"))
+            } else {
+                val title = "#" + issue.number + ":" + " " + issue.title
 
-            list.add(MainUiModel(title))
+                list.add(MainUiModel.IssueTitle(title))
+            }
         }
 
         return list
