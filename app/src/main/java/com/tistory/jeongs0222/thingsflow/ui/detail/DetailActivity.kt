@@ -1,6 +1,7 @@
 package com.tistory.jeongs0222.thingsflow.ui.detail
 
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import com.tistory.jeongs0222.thingsflow.databinding.ActivityDetailBinding
 import com.tistory.jeongs0222.thingsflow.ui.BaseActivity
 import com.tistory.jeongs0222.thingsflow.R
@@ -21,5 +22,9 @@ class DetailActivity : BaseActivity<ActivityDetailBinding>() {
             viewModel = this@DetailActivity.viewModel
             lifecycleOwner = this@DetailActivity
         }
+
+        viewModel.actionBarText.observe(this, Observer {
+            supportActionBar?.title = it
+        })
     }
 }

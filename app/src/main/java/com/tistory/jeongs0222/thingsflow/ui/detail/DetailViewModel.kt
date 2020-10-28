@@ -1,5 +1,8 @@
 package com.tistory.jeongs0222.thingsflow.ui.detail
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import com.tistory.jeongs0222.thingsflow.domain.DetailRepository
 import com.tistory.jeongs0222.thingsflow.model.IssueDetail
 import com.tistory.jeongs0222.thingsflow.model.args.DetailArgs
@@ -14,9 +17,29 @@ class DetailViewModel(
     private val repository: DetailRepository
 ) : DisposableViewModel() {
 
+    private val _actionBarText = MutableLiveData<String>().apply { value = "#"+args.number }
+    val actionBarText: LiveData<String>
+        get() = _actionBarText
+
+    private val issueDetail = MediatorLiveData<IssueDetail>()
+
+    private val _detailUser = MediatorLiveData<DetailUser>()
+    val detailUser: LiveData<DetailUser>
+        get() = _detailUser
+
+    private val _detailContent = MediatorLiveData<DetailContent>()
+    val detailContent: LiveData<DetailContent>
+        get() = _detailContent
+
+
     init {
-        Timber.e("org : " + args.repo)
-        Timber.e("repo : " + args.repo)
+        _detailUser.addSource(issueDetail) {
+            _detailUser.value = it.toDetailUser()
+        }
+
+        _detailContent.addSource(issueDetail) {
+            _detailContent.value = it.toDetailContent()
+        }
 
         bringIssueDetail()
     }
@@ -35,12 +58,19 @@ class DetailViewModel(
     }
 
     private fun onSuccessBringIssueDetail(result: IssueDetail) {
-        Timber.e(result.toString())
+        issueDetail.value = result
     }
 
     private fun onErrorException(it: Throwable) {
         it.printStackTrace()
     }
 
+    private fun IssueDetail.toDetailUser(): DetailUser {
+        return DetailUser(user.avatarUrl, user.login)
+    }
+
+    private fun IssueDetail.toDetailContent(): DetailContent {
+        return DetailContent(number, title, body)
+    }
 
 }
